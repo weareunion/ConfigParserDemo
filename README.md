@@ -17,7 +17,7 @@ npm run build
 
 **NOTE:**
 This may fail if you do not have TypeScript installed. 
-You can fix this by running 
+You can fix this by running  
 ```shell
 npm install typescript
 ``` 
@@ -45,11 +45,11 @@ the instance will automatically process and populate its internal map structure.
 
 The following errors can be thrown (-> sigifies inheritance):
 
-**`ParseError` -> `ConfigError` -> `Error`**: Throws when: a) there is a line with no assigment (such as "data value"), or there is one with more than one assigment ("data = value1 = value2")
+**`ParseError` -> `ConfigError` -> `Error`**: Throws when: a) there is a line with no assigment (such as "data value"), or b) there is one with more than one assigment ("data = value1 = value2")
 
 **`DuplicateIndex` -> `ConfigError` -> `Error`**: Throws when there is a duplicate index
 
-I decided to create this pattern since we can individually detect ConfigErrors overarchingly but also ParseError and DuplicateIndex. 
+I decided to create this pattern since we can individually detect ConfigErrors overarching but also ParseError and DuplicateIndex. 
 
 #### Extracting Data
 
