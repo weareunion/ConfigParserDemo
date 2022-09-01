@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--Written By Karl Schmidt-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Config File Parser</title>
+</head>
+<body>
+<h1>Config File Parser</h1>
+<!--Text are for config input-->
+<label for="textArea">Input the Config File here</label>
+<br/>
+<textarea id="textArea" rows="15" cols="100">
+# This is what a comment looks like, ignore it
+# All these config lines are valid
+host = test.com
+server_id=55331
+server_load_alarm=2.5
+user= user
+# comment can appear here as well
+verbose =true
+test_mode = on
+debug_mode = off
+log_file_path = /tmp/logfile.log
+send_notifications = yes
+</textarea><br/>
+
+<!--Button to trigger processing-->
+<button onclick="processConfigFile((document.getElementById('textArea').value))">Parse File</button>
+
+<!--JSON Content final-->
+<h2>JSON Content</h2>
+<pre id="JSONContent"></pre>
+<strong>Open Dev Console for more info</strong>
+</body>
+<script src="../dist/ConfigurationFile.js"></script>
+<script>
+
+    /**
+     * Driver function responsible for triggering processing
+     * @param configFile Raw text to process
+     */
+    const processConfigFile = (configFile) => {
+        let configProcessed;
+
+        // Attempt to process file
+        try {
+            configProcessed = new ConfigurationFile(configFile);
+        }catch (e) {
+            // Alert in console, and in page
+            console.error(e)
+            document.getElementById("JSONContent").innerHTML = `${e}`;
+        }
+
+        // Add some additional output to console
+        console.log("Configuration File Object: ", configProcessed)
+        console.log("Configuration File Result: ", configProcessed.toOBJ())
+
+        // Show JSON in page
+        document.getElementById("JSONContent").innerHTML = JSON.stringify(configProcessed.toOBJ(), null, '\t') ;
+    }
+</script>
+</html>
