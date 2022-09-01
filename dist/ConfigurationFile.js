@@ -1,9 +1,20 @@
 "use strict";
+/**
+ * Written by Karl Schmidt
+ */
+/**
+ * Throws when there is a duplicate index in the map
+ * @extends Error
+ */
 class ConfigError extends Error {
     constructor(props) {
         super("Could not read configuration file. " + props);
     }
 }
+/**
+ * Throws when there is a parsing error (general)
+ * @extends ConfigError
+ */
 class ParseError extends ConfigError {
     constructor(lineIndex, line, error) {
         super(`Error on line ${lineIndex} : "${line}"${(error !== null && error !== void 0 ? error : "")}`);
@@ -11,6 +22,10 @@ class ParseError extends ConfigError {
         Object.setPrototypeOf(this, ParseError.prototype);
     }
 }
+/**
+ * Throws when there is a duplicate index in the map
+ * @extends ConfigError
+ */
 class DuplicateIndex extends ConfigError {
     constructor(line, indexName) {
         super(`Duplicate index (${indexName}) on line ${line}.`);
@@ -83,11 +98,11 @@ class ConfigurationFile {
             let splitLine = line.split('=');
             // Trim whitespace on the split lines
             splitLine[0] = splitLine[0].trim();
-            if (splitLine.length == 2)
+            if (splitLine.length === 2)
                 splitLine[1] = splitLine[1].trim();
             // If there is no '=' sign, detect and validate a comment,
             // if there are more than 1 '=' sign, throw a ParseError (extends ConfigError)
-            if (splitLine.length == 1) {
+            if (splitLine.length === 1) {
                 // ...then check if the line is formatted as a comment, if so, return (continue), if not,
                 // throw a ParseError (extends ConfigError).
                 if (splitLine[0][0] !== "#") {

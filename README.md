@@ -11,16 +11,18 @@ is a compiled language, and can be compiled from source. This compiled source (J
 I have already compiled the TypeScript for you, but you can also do it yourself as well. 
 
 To do this, execute the following in the root directory of the project: 
-`npm run build`
+```shell
+npm run build
+```
 
 **NOTE:**
 This may fail if you do not have TypeScript installed. 
 You can fix this by running 
-```
+```shell
 npm install typescript
 ``` 
 or just 
-```
+```shell
 npm i
 ``` 
 since the package.json makes note of this dependency.
